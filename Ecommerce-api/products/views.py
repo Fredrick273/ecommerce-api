@@ -1,41 +1,16 @@
-from .models import Product
-from .serializers import ProductSerializer
-from rest_framework import permissions
-from rest_framework.generics import ListAPIView,CreateAPIView,RetrieveUpdateAPIView,DestroyAPIView,RetrieveAPIView
+from .models import Product,Category
+from .serializers import ProductSerializer,CategorySerializer
+from rest_framework import permissions,viewsets
 from rest_framework.parsers import MultiPartParser, FormParser
 
-class ProductListView(ListAPIView):
+class ProductViewSet(viewsets.ModelViewSet):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
-    parser_classes = (MultiPartParser, FormParser)
-    permission_classes = [
-        permissions.IsAuthenticatedOrReadOnly]
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    parser_classes = [MultiPartParser, FormParser]
 
-class ProductCreateView(CreateAPIView):
-    queryset = Product.objects.all()
-    serializer_class = ProductSerializer
-    parser_classes = (MultiPartParser, FormParser)
-    permission_classes = [
-        permissions.IsAuthenticatedOrReadOnly]
-    
-class ProductUpdateView(RetrieveUpdateAPIView):
-    queryset = Product.objects.all()
-    serializer_class = ProductSerializer
-    lookup_field = "pk"
-    parser_classes = (MultiPartParser, FormParser)
+class CategoryViewSet(viewsets.ModelViewSet):
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
-
-class ProductDeleteView(DestroyAPIView):
-    queryset = Product.objects.all()
-    serializer_class = ProductSerializer
-    lookup_field = "pk"
-    parser_classes = (MultiPartParser, FormParser)
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
-
-class ProductRetriveView(RetrieveAPIView):
-    queryset = Product.objects.all()
-    serializer_class = ProductSerializer
-    lookup_field = "pk"
-    parser_classes = (MultiPartParser, FormParser)
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
