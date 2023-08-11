@@ -16,4 +16,5 @@ urlpatterns = [
     path("",schema_view.with_ui('swagger',cache_timeout=0)),
     path("accounts/",include("accounts.urls")),
     path("products/",include("products.urls")),
+    path('orders/',include('orders.urls'))
 ]
